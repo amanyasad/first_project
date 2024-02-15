@@ -1,48 +1,602 @@
 import 'package:flutter/material.dart';
-
+import 'aboutpage.dart';
+import 'contactpage.dart';
+import 'homepage.dart';
 void main() {
   runApp(MyApp());
 }
 class MyApp extends StatefulWidget{
   const MyApp({super.key});
+  @override
   State<MyApp> createState() => _MyAppState();
 }
-class _MyAppState extends State<MyApp>{
-  int i = 0;
-  bool status = true;
-  String? gender = "male";
-  bool mango = false;
-  bool banana = false ;
-  bool apple = false ;
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-   return MaterialApp(
-     home: Scaffold(
-       appBar: AppBar(
-            title: const Text("Checkbox",style: TextStyle(
-              color: Colors.white,
-            ),),
-            backgroundColor: Colors.blue, // Set the background color to transparent
-          ),
-       body: Container(
-         padding: EdgeInsets.all(10),
-         child: Stack(
-           alignment: Alignment.center,
-           children: [
-             Container(width: 300,height: 300,color: Colors.red,),
-             Container(width: 200,height: 200,color: Colors.blue,),
-             Container(width: 100,height: 100,color: Colors.yellow,),
-             Text("Amany"),
-           ],
-         ),
-
-
-       ),
-     ),
-   );
+    return MaterialApp(
+      home: Home(),
+      routes: {
+        "home" : (context)=> Home(),
+        "about" : (context)=> About(),
+        "contact" : (context)=> Contact(),
+      },
+    );
   }
 }
+
+
+// 35- custom widget shortcut
+// import 'package:flutter/material.dart';
+// import 'customcard.dart';
+// void main() {
+//   runApp(MyApp());
+// }
+// class MyApp extends StatefulWidget{
+//   const MyApp({super.key});
+//   @override
+//   State<MyApp> createState() => _MyAppState();
+// }
+// class _MyAppState extends State<MyApp> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//         home:Scaffold(
+//             appBar: AppBar(title:const Text("custom widget shortcut") , backgroundColor: Colors.blue),
+//             body:Container(
+//                 padding: const EdgeInsets.all(10),
+//                 child: const Column(
+//                     children: [
+//                       CustomListTil(
+//                         name:'Amany' , email: 'amany@gmail.com', date: '7-9-1998', imagename: 'th.jpg',
+//                       ),
+//                       CustomListTil(
+//                         name:'Ezzat' , email: 'ezzat@gmail.com', date: '8-8-1998', imagename: 'thh.jpg',
+//                       )
+//                     ]
+//                 )
+//             )
+//         )
+//     );
+//   }
+// }
 //
+//
+// ########################################################
+
+// 34- PageView
+// void main() {
+//   runApp(MyApp());
+// }
+// class MyApp extends StatefulWidget{
+//   const MyApp({super.key});
+//   State<MyApp> createState() => _MyAppState();
+//
+//
+// }
+// class _MyAppState extends State<MyApp>{
+//
+//
+//   @override
+//
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//         home: Scaffold(
+//
+//           appBar: AppBar(
+//             title: Text("BottomNavgationBar"),
+//             titleTextStyle: TextStyle(color: Colors.white),
+//             backgroundColor: Colors.blue,
+//           ),
+//           body: Container(
+//             padding: EdgeInsets.all(10),
+//             child: Column(
+//               children: [
+//                 Container(
+//                   height: 300,
+//                   child: PageView(
+//                     onPageChanged: (val){
+//                       print(val) ;
+//                     },
+//                     children: [
+//                       Image.asset("Images/th.jpg", fit: BoxFit.cover,),
+//                       Image.asset("Images/thh.jpg", fit: BoxFit.cover,),
+//                     ],
+//                   ),
+//                 )
+//               ],
+//             ),
+//           ),
+//         )
+//     );
+//   }
+// }
+// ############################################
+// 33- bottomNavigationBar
+// void main() {
+//   runApp(MyApp());
+// }
+// class MyApp extends StatefulWidget{
+//   const MyApp({super.key});
+//   State<MyApp> createState() => _MyAppState();
+//
+//
+// }
+// class _MyAppState extends State<MyApp>{
+//
+//   GlobalKey<ScaffoldState> scaffoldkey = GlobalKey();
+//   int selectedindex = 0;
+//   List<Widget> listwidget =[
+//     Text("Page 1", style: TextStyle(fontSize: 30),),
+//     Text("Page 2", style: TextStyle(fontSize: 30),)
+//   ];
+//   @override
+//
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//         home: Scaffold(
+//           bottomNavigationBar:BottomNavigationBar(
+//             onTap: (val){
+//               setState(() {
+//                 selectedindex = val;
+//               });},
+//             currentIndex: selectedindex,
+//             backgroundColor: Colors.red,
+//             selectedItemColor: Colors.white,
+//             unselectedItemColor: Colors.black,
+//             selectedFontSize: 20,
+//             unselectedFontSize: 14,
+//             selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+//             items: [
+//               BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+//               BottomNavigationBarItem(
+//                   icon: Icon(Icons.settings,), label: "Settings"
+//               ),
+//             ],),
+//           appBar: AppBar(
+//             title: Text("BottomNavgationBar"),
+//             titleTextStyle: TextStyle(color: Colors.white),
+//             backgroundColor: Colors.blue,
+//           ),
+//           body: Container(
+//             child: listwidget.elementAt(selectedindex),
+//           ),
+//         )
+//     );
+//   }
+// }
+
+// ####################################################
+// 32- tabbar part2
+//
+// void main() {
+//   runApp(MyApp());
+// }
+// class MyApp extends StatefulWidget{
+//   const MyApp({super.key});
+//   State<MyApp> createState() => _MyAppState();
+//
+//
+// }
+// class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin{
+//
+//   GlobalKey<ScaffoldState> scaffoldkey = GlobalKey();
+//   TabController ? tabController ;
+//   @override
+//   void initState(){
+//     tabController = TabController(length: 3, vsync: this) ;
+//     super.initState();
+//   }
+//
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home:Scaffold(
+//
+//         key: scaffoldkey,
+//         appBar: AppBar(title: Text("Tabbar"),
+//           backgroundColor: Colors.blue,
+//           titleTextStyle: TextStyle(color: Colors.white),
+//           bottom: TabBar(
+//             controller: tabController,
+//             indicatorColor: Colors.black,
+//             indicatorWeight: 10,
+//             labelColor: Colors.white,
+//             labelStyle: TextStyle(fontSize: 30),
+//             unselectedLabelColor:  Colors.yellow,
+//             unselectedLabelStyle: TextStyle(fontSize: 10),
+//             tabs: [
+//               Tab(
+//                 icon: Icon(Icons.laptop),
+//                 text: "Laptop",
+//               ),
+//               Tab(
+//                 icon: Icon(Icons.mobile_friendly),
+//                 text: "Mobile",
+//               ),
+//               Tab(
+//                 icon: Icon(Icons.desktop_access_disabled),
+//                 text: "Pc",
+//               ),
+//             ],
+//           ),),
+//         body: Container(
+//           padding: EdgeInsets.all(15),
+//           child: TabBarView(
+//             controller: tabController  ,
+//             children: [
+//               Column(
+//                 children: [
+//                   Text("laptop"),
+//                   MaterialButton(onPressed: (){
+//                     tabController!.animateTo(1) ;
+//                   },
+//                     child: Text("Go to Mobile"),
+//                   ),
+//
+//                 ],
+//               ),
+//               Text("Mobile Page"),
+//               Text("Pc Page"),
+//             ],),
+//         ),
+//       ),
+//
+//     );
+//   }
+// }
+//
+
+
+// #######################################
+// 31-tabbar part 1
+// void main() {
+//   runApp(MyApp());
+// }
+// class MyApp extends StatefulWidget{
+//   const MyApp({super.key});
+//   State<MyApp> createState() => _MyAppState();
+//
+//
+// }
+// class _MyAppState extends State<MyApp>{
+//
+//   GlobalKey<ScaffoldState> scaffoldkey = GlobalKey();
+//   @override
+//
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//         home: DefaultTabController(
+//           length: 3,
+//           child: Scaffold(
+//             key: scaffoldkey,
+//             appBar: AppBar(title: Text("Tabbar"),
+//               backgroundColor: Colors.blue,
+//               titleTextStyle: TextStyle(color: Colors.white),
+//               bottom: TabBar(
+//                 tabs: [
+//                   Tab(child: Text("Labtop")),
+//                   Tab(child: Text("Mobile")),
+//                   Tab(child: Text("Pc")),
+//                 ],
+//               ),),
+//             body: Container(
+//               padding: EdgeInsets.all(15),
+//               child: TabBarView(children: [
+//                 Text("Labtop Page"),
+//                 Text("Mobile Page"),
+//                 Text("Pc Page"),
+//               ],),
+//             ),
+//           ),
+//         )
+//     );
+//   }
+// }
+
+// #########################################################
+// 30-Drawer
+// drawer: Drawer(
+// child: Container(
+// padding: EdgeInsets.all(15),
+// child: ListView(
+// children: [
+// Row(
+// children: [
+// Container(
+// width: 60,
+// height: 60,
+// child: ClipRRect(
+// borderRadius: BorderRadius.circular(60),
+// child: Image.asset("Images/th.jpg",
+// fit:BoxFit.cover,
+// ),
+// ),
+// ),
+// Expanded(
+// child:ListTile(
+// title: Text("Amany Asaad"),
+// subtitle: Text("amany@gmail.com"),
+// ) )
+// ],
+// ),
+// ListTile(
+// title: Text("homepage"),
+// leading: Icon(Icons.home),
+// onTap: (){},
+// ),
+// ListTile(
+// title: Text("Accounts"),
+// leading: Icon(Icons.account_balance),
+// onTap: (){},
+// ),
+// ListTile(
+// title: Text("Orders"),
+// leading: Icon(Icons.check_box),
+// onTap: (){},
+// ),
+// ListTile(
+// title: Text("About Us"),
+// leading: Icon(Icons.help),
+// onTap: (){},
+// ),
+// ListTile(
+// title: Text("Contact Us"),
+// leading: Icon(Icons.phone_android_outlined),
+// onTap: (){},
+// ),
+// ListTile(
+// title: Text("SignOut"),
+// leading: Icon(Icons.exit_to_app),
+// onTap: (){},
+// ),
+//
+// ],
+// ),
+//
+// ),
+// ),
+// ###########################################
+// 29-Appbar
+// appBar: AppBar(
+// leading: IconButton(onPressed: (){},icon: Icon(Icons.home),),
+// titleTextStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+// title: const Text("Appbar",style: TextStyle(
+// color: Colors.white,
+// ),),
+// backgroundColor: Colors.green, // Set the background color to transparent
+// elevation: 20,
+// shadowColor: Colors.red,
+// actions: [
+// IconButton(onPressed: (){}, icon: Icon(Icons.list)),
+// IconButton(onPressed: (){}, icon: Icon(Icons.percent)),
+// IconButton(onPressed: (){}, icon: Icon(Icons.menu)),
+// ],
+//
+// ),
+
+// ####################################################
+// 27&28-  TextFormField onSaved and autovalidate
+// Container(
+// padding: EdgeInsets.all(10),
+// child: Form(
+//
+// key: formstate ,
+// child:Column(
+// children: [
+// TextFormField(
+// autovalidateMode: AutovalidateMode.always,
+// onSaved: (val){
+// username = val;
+// },
+// decoration: InputDecoration(hintText: "username"),
+// validator: (value){
+// if(value!.isEmpty){
+// return "الحقل فارق";
+// }
+// if(value.length > 20){
+// return "لا يمكن ان تكون القيمة اكبر من 20";
+// }
+// },
+// ),
+// TextFormField(
+// autovalidateMode: AutovalidateMode.always,
+// onSaved: (val){
+// phone = val;
+// },
+// decoration: InputDecoration(hintText: "phone"),
+// validator: (value){
+// if(value!.isEmpty){
+// return "الحقل فارق";
+// }
+// if(value.length < 9){
+// return "لا يمكن ان يكون رقم الهاتف اقل من 9";
+// }
+// if(value.length > 12){
+// return "لا يمكن ان يكون رقم الهاتف اكبر من 12";
+// }
+//
+// },
+// ),
+// MaterialButton(
+// textColor: Colors.white,
+// color: Colors.red,
+// child: Text("Valid"),
+// onPressed: (){
+// if(formstate.currentState!.validate()){
+// formstate.currentState!.save();
+// print("valid");
+// print(username);
+// print(phone);
+// }else{
+// print("Not Valid");
+// }
+// })
+// ],
+// )),
+// ),
+
+// ##############################################
+
+// 26- TextFormField validator
+// Container(
+// padding: EdgeInsets.all(10),
+// child: Form(
+// key: formstate ,
+// child:Column(
+// children: [
+// TextFormField(
+// validator: (value){
+// if(value!.isEmpty){
+// return "الحقل فارق";
+// }
+// if(value.length > 20){
+// return "لا يمكن ان تكون القيمة اكبر من 20";
+// }
+// },
+// ),
+// TextFormField(
+// validator: (value){
+// if(value!.isEmpty){
+// return "الحقل فارق";
+// }
+// if(value.length > 10){
+// return "لا يمكن ان تكون القيمة اكبر من 10";
+// }
+// },
+// ),
+// MaterialButton(
+// textColor: Colors.white,
+// color: Colors.red,
+// child: Text("Valid"),
+// onPressed: (){
+// if(formstate.currentState!.validate()){
+// print("valid");
+// }else{
+// print("Not Valid");
+// }
+// })
+// ],
+// )),
+// ),
+// #########################################
+// 25- TextFormField onChange
+// Container(
+// padding: EdgeInsets.all(10),
+// child: Column(
+// children: [
+//
+// TextField(
+// onChanged: (val){
+// setState(() {
+// textValue = val;
+// });
+// },
+// ),
+// MaterialButton(onPressed: (){
+// print(username.text);
+// },
+// child: Text("Print"),
+// color: Colors.blue,
+// textColor: Colors.white,
+// ),
+// Text("$textValue"),
+//
+// ],
+// ),
+// ),
+
+// ####################################################
+// 25- TextFormField Controller
+// Container(
+// padding: EdgeInsets.all(10),
+// child: Column(
+// children: [
+//
+// TextField(
+// controller: username,
+//
+// ),
+// MaterialButton(onPressed: (){
+// print(username.text);
+// },
+// child: Text("Print"),
+// color: Colors.blue,
+// textColor: Colors.white,
+// )
+//
+// ],
+// ),
+// ),
+
+// ################################################
+// 24- TextFormField
+// Container(
+// child: Column(
+// children: [
+// TextField(
+// maxLines: 3,
+// minLines: 1,
+// decoration: InputDecoration(
+// border: OutlineInputBorder() ,
+// focusedBorder: OutlineInputBorder(
+// borderSide: BorderSide(color: Colors.blue),
+// borderRadius: BorderRadius.circular(40)
+// ),
+// enabledBorder: OutlineInputBorder(
+// borderSide: BorderSide(color: Colors.black, width: 2 )
+// ),
+// disabledBorder: OutlineInputBorder(
+// borderSide: BorderSide(color: Colors.red)
+// )
+//
+// ),
+// ), TextField(
+// keyboardType: TextInputType.text,
+//
+// ),
+// ],
+// ),
+// ),
+// ###################################################
+// 23-TextField
+// Container(
+// child: Column(
+// children: [
+// TextField(
+// decoration: InputDecoration(
+// border: OutlineInputBorder(),
+// prefixIcon: Icon(Icons.person,),
+// hintText: 'username',
+// ),
+// ), TextField(
+// decoration: InputDecoration(
+// label: Text("email",style: TextStyle(
+// fontSize: 20,
+// color: Colors.blue,
+// ),),
+// fillColor: Colors.blueGrey,
+// filled: true,
+// ),
+// ),
+// ],
+// ),
+// ),
+// ####################################################
+//22- stack code
+// Container(
+// padding: EdgeInsets.all(10),
+// child: Stack(
+// alignment: Alignment.center,
+// children: [
+// Container(width: 300,height: 300,color: Colors.red,),
+// Container(width: 200,height: 200,color: Colors.blue,),
+// Container(width: 100,height: 100,color: Colors.yellow,),
+// Text("Amany"),
+// ],
+// ),
+//
+//
+// ),
+// #####################################
 // checkbox
 // child: Column(
 // children: [
