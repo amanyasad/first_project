@@ -12,7 +12,7 @@ class _HomeState extends State<Home> {
         home:Scaffold(
             key:scaffoldKey,
             appBar: AppBar(title:const Text("Home") , backgroundColor: Colors.blue,
-            titleTextStyle: TextStyle(fontSize: 30),),
+            titleTextStyle: const TextStyle(fontSize: 30),),
             body: ListView(
               children: [
                 Center(
